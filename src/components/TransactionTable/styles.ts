@@ -34,5 +34,13 @@ export const Container = styled.div`
         color: var(--red);
       }
     }
+
+    tr {
+      transition: box-shadow 0.2s ease-in-out;
+
+      &:hover {
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+      }
+    }
   }
 `;

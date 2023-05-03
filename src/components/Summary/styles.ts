@@ -11,6 +11,7 @@ export const Container = styled.div`
     padding: 1.5rem 2rem;
     border-radius: 0.25rem;
     color: var(--text-title);
+    transition: box-shadow 0.2s ease-in-out;
 
     header {
       display: flex;
@@ -29,6 +30,10 @@ export const Container = styled.div`
     &.highlight-background {
       background: var(--green);
       color: #fff;
+    }
+
+    &:hover {
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
     }
   }
 `;
