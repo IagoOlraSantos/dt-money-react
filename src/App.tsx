@@ -3,32 +3,25 @@ import { Header } from "./components/Header";
 import { NewTransactionModal } from "./components/NewTransactionModal";
 import { GlobalStyle } from "./styles/globals";
 
-import { createServer } from "miragejs";
+import { Model, createServer } from "miragejs";
 import { useState } from "react";
 
 createServer({
+  models: {
+    transaction: Model,
+  },
+
   routes() {
     this.namespace = "api";
 
     this.get("/transactions", () => {
-      return [
-        {
-          id: 1,
-          title: "Desenvolvimento de website",
-          amount: 12000,
-          type: "deposit",
-          category: "Desenvolvimento",
-          createdAt: new Date(),
-        },
-        {
-          id: 2,
-          title: "Aluguel",
-          amount: -400,
-          type: "withdraw",
-          category: "Casa",
-          createdAt: new Date(),
-        },
-      ];
+      return this.schema.all("transaction");
+    });
+
+    this.post("/transactions", (schema, request) => {
+      const data = JSON.parse(request.requestBody);
+
+      return schema.create("transaction", data);
     });
   },
 });
