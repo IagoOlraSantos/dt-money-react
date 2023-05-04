@@ -1,15 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { Container } from "./styles";
-import { api } from "../../services/api";
-
-interface Transaction {
-  id: number;
-  title: string;
-  type: string;
-  category: string;
-  amount: number;
-  createdAt: string;
-}
+import { TransactionContext } from "../../providers/TransactionProvider";
 
 interface Formatter {
   currency(value: number): string;
@@ -17,14 +8,7 @@ interface Formatter {
 }
 
 export function TransactionTable() {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-
-  useEffect(() => {
-    api
-      .get("transactions")
-      .then((response) => setTransactions(response.data.transactions))
-      .catch((error) => console.log(error));
-  }, []);
+  const { transactions } = useContext(TransactionContext);
 
   const formatter: Formatter = {
     currency(value: number): string {
