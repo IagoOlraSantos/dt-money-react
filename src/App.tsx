@@ -5,7 +5,7 @@ import { GlobalStyle } from "./styles/globals";
 
 import { Model, createServer } from "miragejs";
 import { useState } from "react";
-import { TransactionProvider } from "./providers/TransactionProvider";
+import { TransactionProvider } from "./hooks/useTransactions";
 
 createServer({
   models: {

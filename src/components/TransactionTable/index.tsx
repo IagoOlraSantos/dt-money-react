@@ -1,26 +1,9 @@
-import { useContext } from "react";
 import { Container } from "./styles";
-import { TransactionContext } from "../../providers/TransactionProvider";
-
-interface Formatter {
-  currency(value: number): string;
-  date(date: string): string;
-}
+import { useTransactions } from "../../hooks/useTransactions";
+import { Formatter } from "../../handles/formatter";
 
 export function TransactionTable() {
-  const { transactions } = useContext(TransactionContext);
-
-  const formatter: Formatter = {
-    currency(value: number): string {
-      return new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      }).format(value);
-    },
-    date(date: string): string {
-      return new Intl.DateTimeFormat("pt-BR").format(new Date(date));
-    },
-  };
+  const { transactions } = useTransactions();
 
   return (
     <Container>
@@ -37,10 +20,10 @@ export function TransactionTable() {
             <tr key={index}>
               <td>{transaction.title}</td>
               <td className={transaction.type}>
-                {formatter.currency(transaction.amount)}
+                {Formatter.currency(transaction.amount)}
               </td>
               <td>{transaction.category}</td>
-              <td>{formatter.date(transaction.createdAt)}</td>
+              <td>{Formatter.date(transaction.createdAt)}</td>
             </tr>
           ))}
         </tbody>
